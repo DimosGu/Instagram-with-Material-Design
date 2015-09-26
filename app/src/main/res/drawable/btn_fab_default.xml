@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--the style of float button  for v21 -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/fab_color_shadow">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/style_color_accent"></solid>
+        </shape>
+    </item>
+</ripple>
+
