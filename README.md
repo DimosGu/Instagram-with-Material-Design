@@ -15,6 +15,7 @@ Dayone:
 * Toolbar
 * 主Activity和数据适配器
 * 主页动画
+
 Daytwo:
 * 导入Picasso 图片异步加载库 （用于评论列表中显示作者的头像）
 * 在配置清单文件中添加评论的activity
