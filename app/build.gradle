@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.0"
 
     defaultConfig {
-        applicationId "com.rolling.ten_thousand_hours.instamataterial"
+        applicationId "com.rolling.ten_thousand_hours.instamaterial"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
@@ -20,8 +20,11 @@ android {
 }
 
 dependencies {
+    /*
+     *  你可以按Ctrl+Alt_shift+s -> app -> Dependencies -> + 添加最新的jar包
+     *  当然存在方法名更改的情况，还是尽量按我的来吧，哈哈
+     */
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v13:23.0.1'
     compile 'com.android.support:support-v4:23.0.1'
@@ -32,4 +35,5 @@ dependencies {
     compile 'com.jakewharton.timber:timber:3.1.0'
     compile 'com.facebook.rebound:rebound:0.3.8'
     compile 'com.google.android.gms:play-services-identity:7.8.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

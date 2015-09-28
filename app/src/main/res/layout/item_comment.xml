@@ -12,6 +12,7 @@
         android:paddingTop="8dp">
 
         <ImageView
+            android:id="@+id/ivUserAvatar"
             android:layout_width="@dimen/comment_avatar_size"
             android:layout_height="@dimen/comment_avatar_size"
             android:layout_marginLeft="16dp"
@@ -19,6 +20,7 @@
             android:background="@drawable/bg_comment_avatar"/>
 
         <TextView
+            android:id="@+id/tvComment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

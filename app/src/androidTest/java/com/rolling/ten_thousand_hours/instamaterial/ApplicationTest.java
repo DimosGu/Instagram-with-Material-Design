@@ -1,4 +1,4 @@
-package com.rolling.ten_thousand_hours.instamataterial;
+package com.rolling.ten_thousand_hours.instamaterial;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

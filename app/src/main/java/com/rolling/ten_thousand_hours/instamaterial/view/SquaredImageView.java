@@ -1,4 +1,4 @@
-package com.rolling.ten_thousand_hours.instamataterial.view;
+package com.rolling.ten_thousand_hours.instamaterial.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;

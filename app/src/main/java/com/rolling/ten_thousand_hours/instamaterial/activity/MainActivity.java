@@ -1,4 +1,4 @@
-package com.rolling.ten_thousand_hours.instamataterial.activity;
+package com.rolling.ten_thousand_hours.instamaterial.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -15,9 +15,9 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.rolling.ten_thousand_hours.instamataterial.R;
-import com.rolling.ten_thousand_hours.instamataterial.Utils;
-import com.rolling.ten_thousand_hours.instamataterial.adapter.FeedAdapter;
+import com.rolling.ten_thousand_hours.instamaterial.R;
+import com.rolling.ten_thousand_hours.instamaterial.Utils;
+import com.rolling.ten_thousand_hours.instamaterial.adapter.FeedAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

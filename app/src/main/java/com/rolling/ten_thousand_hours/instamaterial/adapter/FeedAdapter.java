@@ -1,4 +1,4 @@
-package com.rolling.ten_thousand_hours.instamataterial.adapter;
+package com.rolling.ten_thousand_hours.instamaterial.adapter;
 
 
 import android.content.Context;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
-import com.rolling.ten_thousand_hours.instamataterial.R;
-import com.rolling.ten_thousand_hours.instamataterial.Utils;
-import com.rolling.ten_thousand_hours.instamataterial.view.SquaredImageView;
+import com.rolling.ten_thousand_hours.instamaterial.R;
+import com.rolling.ten_thousand_hours.instamaterial.Utils;
+import com.rolling.ten_thousand_hours.instamaterial.view.SquaredImageView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

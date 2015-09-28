@@ -20,7 +20,7 @@
             android:src="@mipmap/ic_feed_top"
             android:contentDescription="feedHead"/>
 
-        <com.rolling.ten_thousand_hours.instamataterial.view.SquaredImageView
+        <com.rolling.ten_thousand_hours.instamaterial.view.SquaredImageView
             android:id="@+id/ivFeedCenter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
