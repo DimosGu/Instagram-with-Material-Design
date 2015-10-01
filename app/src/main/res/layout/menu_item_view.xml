@@ -5,4 +5,5 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@drawable/btn_default_light"
     android:src="@mipmap/ic_inbox_white"
-    ></ImageButton>
+    android:contentDescription="OptionsMenuImageButton"
+    />

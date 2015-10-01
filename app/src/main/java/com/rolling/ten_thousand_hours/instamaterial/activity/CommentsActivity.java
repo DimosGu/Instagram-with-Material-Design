@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * 评论界面
  * Created by 10000_hours on 2015/9/27.
  */
 public class CommentsActivity extends AppCompatActivity {
@@ -42,6 +43,7 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
         ButterKnife.bind(this);
+
         setupToolbar();
         setupComments();
 
@@ -63,6 +65,7 @@ public class CommentsActivity extends AppCompatActivity {
      */
     private void startIntroAnimation() {
         contentRoot.setScaleY(0.1f);
+        // TODO: 2015/10/1  这里要验证一下传过来的位置是不是正确，因为动画不是从点击的位置开启的
         contentRoot.setPivotY(drawingStartLocation);
         llAddComment.setTranslationY(100);
 
@@ -81,9 +84,10 @@ public class CommentsActivity extends AppCompatActivity {
 
     private void animationContent() {
         commentsAdapter.updateItems();
-        llAddComment.animate().translationY(0)
-                .setInterpolator(new DecelerateInterpolator())
+        llAddComment.animate()
+                .translationY(0)
                 .setDuration(200)
+                .setInterpolator(new DecelerateInterpolator())
                 .start();
     }
 
@@ -94,7 +98,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         commentsAdapter = new CommentsAdapter(this);
 
-        //这里会有些不一样
+        //这里和博客写的会有些不一样 addOnScrollListener
         rvComments.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

@@ -7,18 +7,22 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
+ * 定义的圆形用户头像控件
  * Created by 10000_hours on 2015/9/26.
  */
 public class SquaredImageView extends ImageView {
     public SquaredImageView (Context context) {
         super(context);
     }
+
     public SquaredImageView (Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
     }
+
     public SquaredImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SquaredImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);

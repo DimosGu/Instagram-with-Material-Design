@@ -18,9 +18,10 @@
             </intent-filter>
         </activity>
         <!-- 评论页面  限制切换横屏-->
-        <activity android:name=".activity.CommentsActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.CommentActivity"/>
+        <activity
+            android:name=".activity.CommentsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.CommentActivity" />
     </application>
 
 </manifest>

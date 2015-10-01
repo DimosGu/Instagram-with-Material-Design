@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity implements FeedAdapter.OnFee
     private static final int ANIM_DURATION_TOOLBAR = 300;
     private static final int ANIM_DURATION_FAB = 400;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements FeedAdapter.OnFee
      * 设置Toolbar
      */
     private void setupToolbar() {
+        //import android.support.v7.widget.Toolbar 包不能导错了
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.ic_menu_white);
     }
@@ -97,21 +96,25 @@ public class MainActivity extends AppCompatActivity implements FeedAdapter.OnFee
      * 设置动画完成监听，完成时调用  content的动画
      */
     private void startIntroAnimation() {
+        // 将ActionFloatingButton 藏在屏幕可视范围的下面
         btnCreate.setTranslationY(2 * getResources().getDimensionPixelOffset(R.dimen.btn_fab_size));
 
+        //将 Toolbar和 InboxMenuItem 藏在屏幕可见范围的上方
         int actionbarSize = Utils.dpTopx(56);
         toolbar.setTranslationY(-actionbarSize);
         inboxMenuItem.getActionView().setTranslationY(-actionbarSize);
 
         toolbar.animate()
-                .translationY(0)
-                .setDuration(ANIM_DURATION_TOOLBAR)
-                .setStartDelay(300);
+                .translationY(0) //纵坐标移动到0的文字
+                .setDuration(ANIM_DURATION_TOOLBAR) //动画的响应时间
+                .setStartDelay(300)
+                .start();
 
         ivLogo.animate()
                 .translationY(0)
                 .setDuration(ANIM_DURATION_TOOLBAR)
-                .setDuration(400);
+                .setStartDelay(400)
+                .start();
 
         inboxMenuItem.getActionView().animate()
                 .translationY(0)
@@ -143,8 +146,8 @@ public class MainActivity extends AppCompatActivity implements FeedAdapter.OnFee
     /**
      * 点击跳转到评论界面，但是打开activity的时候不能有过度和切换的效果
      * （让用户有在同一个界面的错觉）
-     * @param view
-     * @param position
+     * @param view 被点击的评论
+     * @param position 被点击的位置
      */
     @Override
     public void onCommentsClick(View view, int position) {
@@ -156,8 +159,8 @@ public class MainActivity extends AppCompatActivity implements FeedAdapter.OnFee
         int[] startingLocation = new int[2];
         view.getLocationOnScreen(startingLocation);
         intent.putExtra(CommentsActivity.ARG_DRAWING_START_LOCATION, startingLocation);
-
         startActivity(intent);
+
         //Disable enter transition for new Activity 屏蔽切换动画
         overridePendingTransition(0, 0);
 
