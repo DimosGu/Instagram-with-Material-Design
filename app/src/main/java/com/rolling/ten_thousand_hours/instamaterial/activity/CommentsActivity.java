@@ -112,15 +112,15 @@ public class CommentsActivity extends AppCompatActivity {
         });
     }
 
-//    @OnClick(R.id.btnSendComment)
-//    public void onSendCommentClick () {
-//        commentsAdapter.addItem();
+    @OnClick(R.id.btnSendComment)
+    public void onSendCommentClick () {
+        commentsAdapter.addItem();
 //        commentsAdapter.setAnimationsLocked(false);
 //        commentsAdapter.setDelayEnterAnimation(false);
 //        rvComments.smoothScrollBy(0,
 //                rvComments.getChildAt(0).getHeight()
 //                        * commentsAdapter.getItemCount());
-//    }
+    }
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);

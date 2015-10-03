@@ -23,6 +23,7 @@ public class SquaredImageView extends ImageView {
         super(context, attrs, defStyleAttr);
     }
 
+    // TODO: 2015/10/3 去百度学习一下 TargetApi 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SquaredImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
