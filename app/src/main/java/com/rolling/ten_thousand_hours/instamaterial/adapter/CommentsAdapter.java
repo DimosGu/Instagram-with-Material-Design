@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rolling.ten_thousand_hours.instamaterial.R;
+import com.rolling.ten_thousand_hours.instamaterial.view.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -74,7 +75,7 @@ public class CommentsAdapter extends RecyclerView.Adapter {
                 .load(R.mipmap.ic_launcher)
                 .centerCrop()
                 .resize(avatarSize, avatarSize)
-//      todo 写RounedTransfo..方法          .transform(new RounsedTransformation())
+                .transform(new RoundedTransformation())
                 .into(commentsViewHolder.ivUserAvatar);
 
     }

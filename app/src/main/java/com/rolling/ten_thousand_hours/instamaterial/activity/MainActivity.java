@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements FeedAdapter.OnFee
          */
         int[] startingLocation = new int[2];
         view.getLocationOnScreen(startingLocation);
-        intent.putExtra(CommentsActivity.ARG_DRAWING_START_LOCATION, startingLocation);
+        intent.putExtra(CommentsActivity.ARG_DRAWING_START_LOCATION, startingLocation[1]);
         startActivity(intent);
 
         //Disable enter transition for new Activity 屏蔽切换动画

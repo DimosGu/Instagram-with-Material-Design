@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -65,7 +67,6 @@ public class CommentsActivity extends AppCompatActivity {
      */
     private void startIntroAnimation() {
         contentRoot.setScaleY(0.1f);
-        // TODO: 2015/10/1  这里要验证一下传过来的位置是不是正确，因为动画不是从点击的位置开启的
         contentRoot.setPivotY(drawingStartLocation);
         llAddComment.setTranslationY(100);
 
@@ -76,7 +77,6 @@ public class CommentsActivity extends AppCompatActivity {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
                         animationContent();
                     }
                 }).start();
@@ -94,9 +94,11 @@ public class CommentsActivity extends AppCompatActivity {
     private void setupComments() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvComments.setLayoutManager(linearLayoutManager);
-        rvComments.setHasFixedSize(true);
+
+        rvComments.setHasFixedSize(true); // TODO: 2015/10/3
 
         commentsAdapter = new CommentsAdapter(this);
+        rvComments.setAdapter(commentsAdapter);
 
         //这里和博客写的会有些不一样 addOnScrollListener
         rvComments.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -110,15 +112,15 @@ public class CommentsActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.btnSendComment)
-    public void onSendCommentClick () {
-        commentsAdapter.addItem();
-        commentsAdapter.setAnimationsLocked(false);
-        commentsAdapter.setDelayEnterAnimation(false);
-        rvComments.smoothScrollBy(0,
-                rvComments.getChildAt(0).getHeight()
-                        * commentsAdapter.getItemCount());
-    }
+//    @OnClick(R.id.btnSendComment)
+//    public void onSendCommentClick () {
+//        commentsAdapter.addItem();
+//        commentsAdapter.setAnimationsLocked(false);
+//        commentsAdapter.setDelayEnterAnimation(false);
+//        rvComments.smoothScrollBy(0,
+//                rvComments.getChildAt(0).getHeight()
+//                        * commentsAdapter.getItemCount());
+//    }
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
@@ -137,6 +139,14 @@ public class CommentsActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                     }
                 }).start();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem inboxMenuItem = menu.findItem(R.id.action_inbox);
+        inboxMenuItem.setActionView(R.layout.menu_item_view);
+        return true;
     }
 }
 
