@@ -26,4 +26,6 @@ Daythree:
 * 添加feed卡片元素中的按钮（喜欢以及评论）
 * 修正bug以及优化性能
 * toolbar的样式
+*  todo RecyclerView元素的预加载（页面滚动不顺滑，原因教程写的很详细）
+
 	

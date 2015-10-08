@@ -112,14 +112,17 @@ public class CommentsActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * 点击发送按钮
+     */
     @OnClick(R.id.btnSendComment)
     public void onSendCommentClick () {
         commentsAdapter.addItem();
-//        commentsAdapter.setAnimationsLocked(false);
-//        commentsAdapter.setDelayEnterAnimation(false);
-//        rvComments.smoothScrollBy(0,
-//                rvComments.getChildAt(0).getHeight()
-//                        * commentsAdapter.getItemCount());
+        commentsAdapter.setAnimationsLocked(false);
+        commentsAdapter.setDelayEnterAnimation(false);
+        rvComments.smoothScrollBy(0,
+                rvComments.getChildAt(0).getHeight()
+                        * commentsAdapter.getItemCount());
     }
 
     private void setupToolbar() {
@@ -127,6 +130,10 @@ public class CommentsActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.mipmap.ic_menu_white);
     }
 
+    /**
+     * 评论界面的推出动画处理：
+     * 1，播放内容部分的滑出动画 2，屏蔽activity退出动画
+     */
     @Override
     public void onBackPressed() {
         contentRoot.animate()
@@ -148,5 +155,6 @@ public class CommentsActivity extends AppCompatActivity {
         inboxMenuItem.setActionView(R.layout.menu_item_view);
         return true;
     }
+
 }
 
