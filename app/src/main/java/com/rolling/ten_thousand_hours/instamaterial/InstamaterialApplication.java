@@ -1,3 +1,5 @@
+package com.rolling.ten_thousand_hours.instamaterial;
+
 import android.app.Application;
 
 import timber.log.Timber;
