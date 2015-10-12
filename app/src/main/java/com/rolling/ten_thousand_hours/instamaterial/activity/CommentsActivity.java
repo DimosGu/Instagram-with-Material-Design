@@ -7,16 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.rolling.ten_thousand_hours.instamaterial.R;
 import com.rolling.ten_thousand_hours.instamaterial.Utils;
 import com.rolling.ten_thousand_hours.instamaterial.adapter.CommentsAdapter;
+import com.rolling.ten_thousand_hours.instamaterial.view.SendCommentButton;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,7 +31,7 @@ import butterknife.OnClick;
  * 评论界面
  * Created by 10000_hours on 2015/9/27.
  */
-public class CommentsActivity extends AppCompatActivity {
+public class CommentsActivity extends AppCompatActivity implements SendCommentButton.OnSendClickLister{
     public static final String ARG_DRAWING_START_LOCATION = "arg_drawing_start_location";
     private int drawingStartLocation;
     private CommentsAdapter commentsAdapter;
@@ -40,6 +45,12 @@ public class CommentsActivity extends AppCompatActivity {
     @Bind(R.id.llAddComment)
     LinearLayout llAddComment;
 
+    //绑定评论布局和按钮
+    @Bind(R.id.etComment)
+    EditText etComment;
+    @Bind(R.id.btnSendComment)
+    SendCommentButton btnSendComment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +59,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         setupToolbar();
         setupComments();
+        setupSendCommentButton();
 
         drawingStartLocation = getIntent().getIntExtra(ARG_DRAWING_START_LOCATION, 0);
         if ( savedInstanceState == null ) {
@@ -62,13 +74,18 @@ public class CommentsActivity extends AppCompatActivity {
         }
     }
 
+    private void setupSendCommentButton() {
+        btnSendComment.setOnSendClickLister(this);
+    }
+
     /**
      * 开始动画
      */
     private void startIntroAnimation() {
         contentRoot.setScaleY(0.1f);
         contentRoot.setPivotY(drawingStartLocation);
-        llAddComment.setTranslationY(100);
+//        llAddComment.setTranslationY(100); 改为200毫秒
+        llAddComment.setTranslationY(200);
 
         contentRoot.animate()
                 .scaleY(1)
@@ -95,7 +112,7 @@ public class CommentsActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvComments.setLayoutManager(linearLayoutManager);
 
-        rvComments.setHasFixedSize(true); // TODO: 2015/10/3
+        rvComments.setHasFixedSize(true); // TODO: 2015/10/3 查一下这个什么意思
 
         commentsAdapter = new CommentsAdapter(this);
         rvComments.setAdapter(commentsAdapter);
@@ -115,15 +132,38 @@ public class CommentsActivity extends AppCompatActivity {
     /*
      * 点击发送按钮
      */
-    @OnClick(R.id.btnSendComment)
-    public void onSendCommentClick () {
-        commentsAdapter.addItem();
-        commentsAdapter.setAnimationsLocked(false);
-        commentsAdapter.setDelayEnterAnimation(false);
-        rvComments.smoothScrollBy(0,
-                rvComments.getChildAt(0).getHeight()
-                        * commentsAdapter.getItemCount());
+//    废弃这个方法了，用下面那个
+//    @OnClick(R.id.btnSendComment)
+//    public void onSendCommentClick () {
+//        commentsAdapter.addItem();
+//        commentsAdapter.setAnimationsLocked(false);
+//        commentsAdapter.setDelayEnterAnimation(false);
+//        rvComments.smoothScrollBy(0,
+//                rvComments.getChildAt(0).getHeight()
+//                        * commentsAdapter.getItemCount());
+//    }
+    @Override
+    public void onSendClickListener(View v) {
+        if (validateComment()) {
+            commentsAdapter.addItem();
+            commentsAdapter.setAnimationsLocked(false);
+            commentsAdapter.setDelayEnterAnimation(false);
+            rvComments.smoothScrollBy(0,
+                    rvComments.getChildAt(0).getHeight()
+                    * commentsAdapter.getItemCount());
+        }
     }
+
+    // 检查文本框是否有内容
+    private boolean validateComment () {
+        if (TextUtils.isEmpty(etComment.getText())) {
+            btnSendComment.startAnimation(
+                    AnimationUtils.loadAnimation( this, R.anim.shake_error));
+            return false;
+        }
+        return true;
+    }
+
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
@@ -155,6 +195,5 @@ public class CommentsActivity extends AppCompatActivity {
         inboxMenuItem.setActionView(R.layout.menu_item_view);
         return true;
     }
-
 }
 
