@@ -3,6 +3,7 @@ package com.rolling.ten_thousand_hours.instamaterial.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -82,6 +83,7 @@ public class CommentsActivity extends AppCompatActivity implements SendCommentBu
      * 开始动画
      */
     private void startIntroAnimation() {
+        ViewCompat.setElevation(toolbar, 0);
         contentRoot.setScaleY(0.1f);
         contentRoot.setPivotY(drawingStartLocation);
 //        llAddComment.setTranslationY(100); 改为200毫秒
@@ -94,6 +96,7 @@ public class CommentsActivity extends AppCompatActivity implements SendCommentBu
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        ViewCompat.setElevation(toolbar, Utils.dpTopx(8));
                         animationContent();
                     }
                 }).start();
@@ -176,6 +179,7 @@ public class CommentsActivity extends AppCompatActivity implements SendCommentBu
      */
     @Override
     public void onBackPressed() {
+        ViewCompat.setElevation(toolbar, 0);
         contentRoot.animate()
                 .translationY(Utils.getScreenHeight(this))
                 .setDuration(200)
