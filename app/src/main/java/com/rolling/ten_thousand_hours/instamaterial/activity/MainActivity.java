@@ -72,7 +72,13 @@ public class MainActivity extends AppCompatActivity implements FeedAdapter.OnFee
      * 配置适配器
      */
     private void setupFeed() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(this) {
+                    @Override
+                    protected int getExtraLayoutSpace(RecyclerView.State state) {
+                        return 300;
+                    }
+                };
         rvFeed.setLayoutManager(linearLayoutManager);
         feedAdapter = new FeedAdapter(this);
         rvFeed.setAdapter(feedAdapter);
