@@ -72,6 +72,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         //设置监听和Tag
         holder.ivFeedBottom.setOnClickListener(this);
         holder.ivFeedBottom.setTag(position);
+        holder.btnMore.setOnClickListener(this);
+        holder.btnMore.setTag(position);
     }
 
     @Override
@@ -81,9 +83,14 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.ivFeedBottom) {
+        final  int viewId = view.getId();
+        if (viewId == R.id.btnComments) {
             if (onFeedItemClickListener != null) {
                 onFeedItemClickListener.onCommentsClick(view, (Integer) view.getTag());
+            }
+        } else if (viewId == R.id.btnMore) {
+            if (onFeedItemClickListener != null) {
+                onFeedItemClickListener.onMoreClick(view, (Integer)view.getTag());
             }
         }
     }
@@ -94,6 +101,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     public interface OnFeedItemClickListener {
         public void onCommentsClick (View view, int position);
+        public void onMoreClick (View view, int position);
     }
 
     public static class CellFeedViewHolder extends RecyclerView.ViewHolder {
@@ -105,6 +113,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         SquaredImageView ivFeedCenter;
         @Bind(R.id.ivFeedBottom)
         ImageView ivFeedBottom;
+        @Bind(R.id.btnMore)
+        ImageView btnMore;
 
         public CellFeedViewHolder(View itemView) {
             super(itemView);

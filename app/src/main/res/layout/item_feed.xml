@@ -30,14 +30,13 @@
             android:id="@+id/ivFeedBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="feedBottom" />
+            android:contentDescription="feedBottom"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:visibility="gone">
+            android:paddingRight="8dp">
 
             <ImageButton
                 android:id="@+id/btnLike"
@@ -52,6 +51,13 @@
                 android:layout_height="48dp"
                 android:background="@drawable/btn_feed_action"
                 android:src="@mipmap/ic_comment_outline_grey"/>
+
+            <ImageButton
+                android:id="@+id/btnMore"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/btn_feed_action"
+                android:src="@mipmap/ic_more_grey"/>
         </LinearLayout>
 
     </LinearLayout>

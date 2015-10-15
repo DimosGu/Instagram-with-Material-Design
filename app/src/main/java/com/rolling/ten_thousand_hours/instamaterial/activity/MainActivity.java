@@ -173,4 +173,9 @@ public class MainActivity extends AppCompatActivity implements FeedAdapter.OnFee
         overridePendingTransition(0, 0);
 
     }
+
+    @Override
+    public void onMoreClick(View view, int position) {
+
+    }
 }

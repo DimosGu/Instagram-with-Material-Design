@@ -1,6 +1,7 @@
 package com.rolling.ten_thousand_hours.instamaterial.view;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ViewAnimator;
@@ -23,15 +24,14 @@ public class SendCommentButton extends ViewAnimator implements View.OnClickListe
     private Runnable revertStateRunnable = new Runnable() {
         @Override
         public void run() {
-            setCurrentState(STATE_SEND);      
+            setCurrentState(STATE_SEND);
         }
     };
 
     public void setCurrentState(int stateSend) {
-        if (stateSend == STATE_SEND) {
+        if (stateSend == currentState) {
             return;
         }
-
         currentState = stateSend;
         if (stateSend == STATE_DONE) {
             setEnabled(false);
@@ -48,6 +48,11 @@ public class SendCommentButton extends ViewAnimator implements View.OnClickListe
 
     public SendCommentButton(Context context) {
         super(context);
+        init();
+    }
+
+    public SendCommentButton (Context context, AttributeSet attrs) {
+        super(context, attrs);
         init();
     }
 

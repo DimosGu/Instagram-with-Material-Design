@@ -120,6 +120,9 @@ public class CommentsActivity extends AppCompatActivity implements SendCommentBu
         commentsAdapter = new CommentsAdapter(this);
         rvComments.setAdapter(commentsAdapter);
 
+        // disable overscroll effect in comments list
+        rvComments.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
         //这里和博客写的会有些不一样 addOnScrollListener
         rvComments.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -154,6 +157,9 @@ public class CommentsActivity extends AppCompatActivity implements SendCommentBu
             rvComments.smoothScrollBy(0,
                     rvComments.getChildAt(0).getHeight()
                     * commentsAdapter.getItemCount());
+
+            etComment.setText(null);
+            btnSendComment.setCurrentState(SendCommentButton.STATE_DONE);
         }
     }
 
