@@ -26,6 +26,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private Context context;
     private  int lastAnimatedPosition = -1;
     private int itemsCount = 0;
+    private  boolean animateItems = false;
 
     private OnFeedItemClickListener onFeedItemClickListener;
 
@@ -40,7 +41,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     private void runEnterAnimation ( View view, int position ) {
-        if ( position >= ANIMATED_ITEMS_COUNT - 1 ) {
+//        if ( position >= ANIMATED_ITEMS_COUNT - 1 ) {
+        if (!animateItems || position >= ANIMATED_ITEMS_COUNT - 1) {
             return;
         }
 
@@ -111,8 +113,9 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     // 为recycleView适配数据
-    public void updateItems () {
+    public void updateItems ( boolean animated) {
         itemsCount = 10;
+        animateItems = animated;
         notifyDataSetChanged();
     }
 

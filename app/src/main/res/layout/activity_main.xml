@@ -12,7 +12,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/style_color_primary">
+        android:background="@color/style_color_primary"
+        android:elevation="@dimen/default_elevation">
 
         <ImageView
             android:id="@+id/ivLogo"
