@@ -22,7 +22,8 @@ import com.rolling.ten_thousand_hours.instamaterial.adapter.FeedAdapter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements FeedAdapter.OnFeedItemClickListener{
+public class MainActivity extends AppCompatActivity implements
+        FeedAdapter.OnFeedItemClickListener{
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.rvFeed)

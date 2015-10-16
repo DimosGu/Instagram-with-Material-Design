@@ -28,4 +28,9 @@ Daythree:
 * toolbar的样式
 *  todo RecyclerView元素的预加载（页面滚动不顺滑，原因教程写的很详细 ）
 
+Dayfour:
+* 用include标签来重用布局，上下文菜单 merge 标签的用法
+* 观察者模式的使用，.9图片（左和上的黑线表示可拉伸区域，右和下定义被融区域）
+*
+
 	
