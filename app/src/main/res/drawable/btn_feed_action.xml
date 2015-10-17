@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- btn_feed_action -->
+<!--
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
     android:exitFadeDuration="200"
     android:enterFadeDuration="200">
@@ -13,4 +14,6 @@
             <solid android:color="#6621425d"/>
         </shape>
     </item>
-</selector>
+</selector>-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="?attr/colorPrimaryDark"/>
