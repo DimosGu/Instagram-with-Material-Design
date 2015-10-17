@@ -1,3 +1,5 @@
+package com.rolling.ten_thousand_hours.instamaterial.view;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +35,8 @@ public class FeedContextMenuManager extends RecyclerView.OnScrollListener implem
         }
         return instance;
     }
+
+    private FeedContextMenuManager () {}
 
     // 实现隐藏view的方法
     public void toggleContextMenuFromView (View openingView, int feedItem,
@@ -97,7 +101,7 @@ public class FeedContextMenuManager extends RecyclerView.OnScrollListener implem
                 });
     }
 
-    private void hideContextMenu() {
+    public void hideContextMenu() {
         if (!isContextMenuDismissing) {
             isContextMenuDismissing = true;
             preformDismissAnimation();
@@ -118,6 +122,7 @@ public class FeedContextMenuManager extends RecyclerView.OnScrollListener implem
                         if (contextMenuView != null) {
                             contextMenuView.dismiss();
                         }
+                        isContextMenuDismissing = false;
                     }
                 });
     }

@@ -1,3 +1,5 @@
+package com.rolling.ten_thousand_hours.instamaterial.view;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -27,7 +29,7 @@ public class FeedContextMenu extends LinearLayout {
     private void init() {
         LayoutInflater.from(getContext())
                 .inflate(R.layout.view_context_menu, this, true);
-        setBackgroundResource(R.mipmap.bg_container_shadow_9);
+        setBackgroundResource(R.mipmap.bg_container_shadow);
         setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(CONTEXT_MENU_WIDTH, ViewGroup.LayoutParams.WRAP_CONTENT));
     }

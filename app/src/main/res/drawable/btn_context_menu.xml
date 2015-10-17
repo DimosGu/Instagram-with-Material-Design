@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--<selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/btn_context_menu_normal" android:state_focused="false" android:state_pressed="false"/>
     <item android:drawable="@color/btn_context_menu_pressed" android:state_focused="true"/>
     <item android:drawable="@color/btn_context_menu_pressed" android:state_pressed="true"/>
-</selector>
+</selector>-->
+<!-- drable-v21/btn_context_menu.xml -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/btn_context_menu_pressed">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/btn_context_menu_normal"/>
+        </shape>
+    </item>
+</ripple>

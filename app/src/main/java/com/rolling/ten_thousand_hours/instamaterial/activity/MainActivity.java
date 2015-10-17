@@ -18,12 +18,14 @@ import android.widget.ImageView;
 import com.rolling.ten_thousand_hours.instamaterial.R;
 import com.rolling.ten_thousand_hours.instamaterial.Utils;
 import com.rolling.ten_thousand_hours.instamaterial.adapter.FeedAdapter;
+import com.rolling.ten_thousand_hours.instamaterial.view.FeedContextMenu;
+import com.rolling.ten_thousand_hours.instamaterial.view.FeedContextMenuManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements
-        FeedAdapter.OnFeedItemClickListener{
+        FeedAdapter.OnFeedItemClickListener, FeedContextMenu.OnFeedContextMenuItemClickListener{
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.rvFeed)
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        setupFeed () ;
+        setupFeed ();
         setupToolbar();
         /*
          *  设定在activity启动的时候才播放动画（旋转屏幕的时候不播放）
@@ -80,10 +82,16 @@ public class MainActivity extends AppCompatActivity implements
                         return 300;
                     }
                 };
-        rvFeed.setLayoutManager(linearLayoutManager);
         feedAdapter = new FeedAdapter(this);
-        rvFeed.setAdapter(feedAdapter);
         feedAdapter.setOnFeedItemClickListener(this);
+        rvFeed.setAdapter(feedAdapter);
+        rvFeed.setLayoutManager(linearLayoutManager);
+        rvFeed.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                FeedContextMenuManager.getInstance().onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     @Override
@@ -177,6 +185,26 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onMoreClick(View view, int position) {
+        FeedContextMenuManager.getInstance().toggleContextMenuFromView(view, position, this);
+    }
 
+    @Override
+    public void onReportClick(int feedItem) {
+        FeedContextMenuManager.getInstance().hideContextMenu();
+    }
+
+    @Override
+    public void onSharePhotoClick(int feedItem) {
+        FeedContextMenuManager.getInstance().hideContextMenu();
+    }
+
+    @Override
+    public void onCopyShareUrlClick(int feedItem) {
+        FeedContextMenuManager.getInstance().hideContextMenu();
+    }
+
+    @Override
+    public void onCancelClick(int feedItem) {
+        FeedContextMenuManager.getInstance().hideContextMenu();
     }
 }
