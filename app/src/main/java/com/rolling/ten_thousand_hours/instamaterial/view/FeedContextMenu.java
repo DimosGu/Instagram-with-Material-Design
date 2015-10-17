@@ -55,21 +55,21 @@ public class FeedContextMenu extends LinearLayout {
         }
     }
 
-    @OnClick(R.id.btnReport)
+    @OnClick(R.id.btnSharePhoto)
     public void onSharePhotoClick() {
         if (onItemClickListener != null) {
             onItemClickListener.onSharePhotoClick(feedItem);
         }
     }
 
-    @OnClick(R.id.btnReport)
+    @OnClick(R.id.btnCopyShareUrl)
     public void onCopyShareUrlClick() {
         if (onItemClickListener != null) {
             onItemClickListener.onCopyShareUrlClick(feedItem);
         }
     }
 
-    @OnClick(R.id.btnReport)
+    @OnClick(R.id.btnCancel)
     public void onCancelClick() {
         if (onItemClickListener != null) {
             onItemClickListener.onCancelClick(feedItem);
