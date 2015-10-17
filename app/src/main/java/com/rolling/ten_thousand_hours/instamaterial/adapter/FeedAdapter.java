@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.rolling.ten_thousand_hours.instamaterial.R;
@@ -32,6 +33,28 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     public FeedAdapter (Context context) {
         this.context = context;
+    }
+
+    public static class CellFeedViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * ButterKnife 7.0.0 : '@Bind' 代替了 ‘@InjectView’ 和 '@Ingectviews'
+         * 'ButterKnife.bind' 和 'ButterKnife.unbind' 分别替换了 'ButterKnife.inject' 和 `ButterKnife.reset`
+         */
+        @Bind(R.id.ivFeedCenter)
+        SquaredImageView ivFeedCenter;
+        @Bind(R.id.ivFeedBottom)
+        ImageView ivFeedBottom;
+        @Bind(R.id.btnMore)
+        ImageButton btnMore;
+        @Bind(R.id.btnComments)
+        ImageButton btnComments;
+        @Bind(R.id.btnLike)
+        ImageButton btnLike;
+
+        public CellFeedViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 
     @Override
@@ -72,6 +95,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         //设置监听和Tag
         holder.ivFeedBottom.setOnClickListener(this);
         holder.ivFeedBottom.setTag(position);
+        holder.btnComments.setOnClickListener(this);
+        holder.btnComments.setTag(position);
         holder.btnMore.setOnClickListener(this);
         holder.btnMore.setTag(position);
     }
@@ -102,24 +127,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     public interface OnFeedItemClickListener {
         public void onCommentsClick (View view, int position);
         public void onMoreClick (View view, int position);
-    }
-
-    public static class CellFeedViewHolder extends RecyclerView.ViewHolder {
-        /**
-         * ButterKnife 7.0.0 : '@Bind' 代替了 ‘@InjectView’ 和 '@Ingectviews'
-         * 'ButterKnife.bind' 和 'ButterKnife.unbind' 分别替换了 'ButterKnife.inject' 和 `ButterKnife.reset`
-         */
-        @Bind(R.id.ivFeedCenter)
-        SquaredImageView ivFeedCenter;
-        @Bind(R.id.ivFeedBottom)
-        ImageView ivFeedBottom;
-        @Bind(R.id.btnMore)
-        ImageView btnMore;
-
-        public CellFeedViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
     }
 
     // 为recycleView适配数据
