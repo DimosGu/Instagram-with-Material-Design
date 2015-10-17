@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
  * Created by 10000_hours on 2015/9/13.
  */
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
+    private static final  DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();
     private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
     private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
 
@@ -71,6 +72,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         ImageButton btnLike;
         @Bind(R.id.tsLikesCounter)
         TextSwitcher tsLikesCounter;
+        @Bind(R.id.vBgLike)
+        View vBgLike;
+        @Bind(R.id.ivLike)
+        ImageView ivLike;
 
         public CellFeedViewHolder(View itemView) {
             super(itemView);
@@ -122,6 +127,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         holder.ivFeedBottom.setTag(position);
         holder.btnComments.setOnClickListener(this);
         holder.btnComments.setTag(position);
+        holder.ivFeedCenter.setOnClickListener(this);
+        holder.ivFeedCenter.setTag(holder);
         holder.btnMore.setOnClickListener(this);
         holder.btnMore.setTag(position);
         holder.btnLike.setOnClickListener(this);
@@ -131,11 +138,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             likeAnimations.get(holder).cancel();
         }
         resetLikeAnimationState(holder);
-    }
-
-    private void resetLikeAnimationState(CellFeedViewHolder holder) {
-        likeAnimations.remove(holder);
-
     }
 
     private void updateHeartButton(final CellFeedViewHolder holder, boolean animated) {
@@ -225,7 +227,24 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 updateLikesCounter(holder, true);
                 updateHeartButton(holder, true);
             }
+        } else if (viewId == R.id.ivFeedCenter) {
+            CellFeedViewHolder holder = (CellFeedViewHolder) view.getTag();
+            if (!likedPositions.contains(holder.getAdapterPosition())) {
+                updateLikesCounter(holder, true);
+                animatePhoteLike(holder);
+                updateHeartButton(holder, false);
+            }
         }
+    }
+
+    private void animatePhoteLike(CellFeedViewHolder holder) {
+        // TODO: 2015/10/18 add animation for feed photo like 
+    }
+
+    private void resetLikeAnimationState(CellFeedViewHolder holder) {
+        likeAnimations.remove(holder);
+        holder.vBgLike.setVisibility(View.GONE);
+        holder.ivLike.setVisibility(View.GONE);
     }
 
     public void setOnFeedItemClickListener (OnFeedItemClickListener onFeedItemClickListener) {

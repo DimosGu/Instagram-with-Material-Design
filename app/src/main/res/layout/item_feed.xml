@@ -21,10 +21,29 @@
             android:src="@mipmap/ic_feed_top"
             android:contentDescription="feedHead"/>
 
-        <com.rolling.ten_thousand_hours.instamaterial.view.SquaredImageView
-            android:id="@+id/ivFeedCenter"
+        <com.rolling.ten_thousand_hours.instamaterial.view.SquaredFrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivFeedCenter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+
+            <View
+                android:id="@+id/vBgLike"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_like_circle_background"/>
+
+            <ImageView
+                android:id="@+id/ivLike"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@mipmap/ic_heart_outline_white"/>
+        </com.rolling.ten_thousand_hours.instamaterial.view.SquaredFrameLayout>
 
         <ImageView
             android:id="@+id/ivFeedBottom"

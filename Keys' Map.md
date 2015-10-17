@@ -15,7 +15,7 @@ Android Studio 很节省效率的快捷键：
 14.Ctrl + b 直接跳转到类，方法，成员变量 和 Ctrl + 鼠标左键的效果一样
 15.ctrl + alt + b 查询有哪些类实现了光标所在的接口
 16.ctrl + shift + f7 高亮显示标志出匹配的东西
-17.shift + 鼠标左键 实现编辑界面的左右滚动
+17.shift + 鼠标中间 实现编辑界面的左右滚动
 18.ctrl + o 重写父类的方法 接口对应的是 Ctrl + i
 19.ctrl + shift + i 快速查看方法体
 20.ctrl + q 查看说明文档
