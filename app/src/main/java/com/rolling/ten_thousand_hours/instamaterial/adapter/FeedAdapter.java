@@ -9,10 +9,15 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextSwitcher;
 
 import com.rolling.ten_thousand_hours.instamaterial.R;
 import com.rolling.ten_thousand_hours.instamaterial.Utils;
 import com.rolling.ten_thousand_hours.instamaterial.view.SquaredImageView;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,6 +34,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private int itemsCount = 0;
     private  boolean animateItems = false;
 
+    private final Map<Integer, Integer> likesCount = new HashMap<>();
     private OnFeedItemClickListener onFeedItemClickListener;
 
     public FeedAdapter (Context context) {
@@ -50,6 +56,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         ImageButton btnComments;
         @Bind(R.id.btnLike)
         ImageButton btnLike;
+        @Bind(R.id.tsLikesCounter)
+        TextSwitcher tsLikesCounter;
 
         public CellFeedViewHolder(View itemView) {
             super(itemView);
@@ -91,6 +99,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             holder.ivFeedCenter.setImageResource(R.mipmap.img_feed_center_2);
             holder.ivFeedBottom.setImageResource(R.mipmap.img_feed_bottom_2);
         }
+        updateLikesCounter(holder, false);
 
         //设置监听和Tag
         holder.ivFeedBottom.setOnClickListener(this);
@@ -99,6 +108,25 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         holder.btnComments.setTag(position);
         holder.btnMore.setOnClickListener(this);
         holder.btnMore.setTag(position);
+    }
+
+    private void updateLikesCounter(CellFeedViewHolder holder, boolean animated) {
+        int currentLikesCount = likesCount.get(holder.getAdapterPosition()) + 1;
+        // TODO: 2015/10/18 google 一些这个R.plurals是个什么情况
+        // 可参考：http://developer.android.com/intl/zh-cn/guide/topics/resources/string-resource.html#Plurals
+        String likesCountText = context.getResources().getQuantityString(
+                R.plurals.likes_count, currentLikesCount, currentLikesCount
+        );
+
+        if (animated) {
+            //点击like按钮的时候动态更新（TextSwitcher.setText()切换并设置下一个TextView的值）
+            holder.tsLikesCounter.setText(likesCountText);
+        } else {
+            //onBindViewHolder()中被调用，无需动画（设置正在显示的TextView）
+            holder.tsLikesCounter.setCurrentText(likesCountText);
+        }
+
+        likesCount.put(holder.getAdapterPosition(), currentLikesCount);
     }
 
     @Override
@@ -133,7 +161,14 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     public void updateItems ( boolean animated) {
         itemsCount = 10;
         animateItems = animated;
+        fillLikesWithRandomValues();
         notifyDataSetChanged();
+    }
+
+    private void fillLikesWithRandomValues() {
+        for (int i = 0; i < getItemCount(); i++) {
+            likesCount.put(i, new Random().nextInt(100));
+        }
     }
 
 }
