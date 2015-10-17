@@ -1,12 +1,18 @@
 package com.rolling.ten_thousand_hours.instamaterial.adapter;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextSwitcher;
@@ -15,6 +21,7 @@ import com.rolling.ten_thousand_hours.instamaterial.R;
 import com.rolling.ten_thousand_hours.instamaterial.Utils;
 import com.rolling.ten_thousand_hours.instamaterial.view.SquaredImageView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -27,6 +34,9 @@ import butterknife.ButterKnife;
  * Created by 10000_hours on 2015/9/13.
  */
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
+    private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
+    private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
+
     private static final int ANIMATED_ITEMS_COUNT = 2;
 
     private Context context;
@@ -35,6 +45,9 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private  boolean animateItems = false;
 
     private final Map<Integer, Integer> likesCount = new HashMap<>();
+    private final Map<RecyclerView.ViewHolder, AnimatorSet> likeAnimations = new HashMap<>();
+    private final ArrayList<Integer> likedPositions = new ArrayList<>();
+
     private OnFeedItemClickListener onFeedItemClickListener;
 
     public FeedAdapter (Context context) {
@@ -99,7 +112,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             holder.ivFeedCenter.setImageResource(R.mipmap.img_feed_center_2);
             holder.ivFeedBottom.setImageResource(R.mipmap.img_feed_bottom_2);
         }
+        
+        //更新喜欢的数字以及点击喜欢按钮的动画
         updateLikesCounter(holder, false);
+        updateHeartButton(holder, false);
 
         //设置监听和Tag
         holder.ivFeedBottom.setOnClickListener(this);
@@ -108,6 +124,63 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         holder.btnComments.setTag(position);
         holder.btnMore.setOnClickListener(this);
         holder.btnMore.setTag(position);
+        holder.btnLike.setOnClickListener(this);
+        holder.btnLike.setTag(holder);
+
+        if (likeAnimations.containsKey(holder)) {
+            likeAnimations.get(holder).cancel();
+        }
+        resetLikeAnimationState(holder);
+    }
+
+    private void resetLikeAnimationState(CellFeedViewHolder holder) {
+        likeAnimations.remove(holder);
+
+    }
+
+    private void updateHeartButton(final CellFeedViewHolder holder, boolean animated) {
+        if (animated) {
+            if (!likeAnimations.containsKey(holder)) {
+                AnimatorSet animatorSet = new AnimatorSet();
+                likeAnimations.put(holder, animatorSet);
+
+                ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(holder.btnLike, "rotation", 0f, 360f);
+                rotationAnim.setDuration(300);
+                rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(holder.btnLike, "scaleX", 0.2f, 1f);
+                bounceAnimX.setDuration(300);
+                bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
+
+                ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(holder.btnLike, "scaleY", 0.2f, 1f);
+                bounceAnimY.setDuration(300);
+                bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
+                bounceAnimY.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        holder.btnLike.setImageResource(R.mipmap.ic_heart_red);
+                    }
+                });
+
+                animatorSet.play(rotationAnim);
+                animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
+
+                animatorSet.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        resetLikeAnimationState(holder);
+                    }
+                });
+
+                animatorSet.start();
+            } else {
+                if (likedPositions.contains(holder.getAdapterPosition())) {
+                    holder.btnLike.setImageResource(R.mipmap.ic_heart_red);
+                } else {
+                    holder.btnLike.setImageResource(R.mipmap.ic_heart_outline_grey);
+                }
+            }
+        }
     }
 
     private void updateLikesCounter(CellFeedViewHolder holder, boolean animated) {
@@ -144,6 +217,13 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         } else if (viewId == R.id.btnMore) {
             if (onFeedItemClickListener != null) {
                 onFeedItemClickListener.onMoreClick(view, (Integer)view.getTag());
+            }
+        } else if (viewId == R.id.btnLike) {
+            CellFeedViewHolder holder = (CellFeedViewHolder) view.getTag();
+            if (!likedPositions.contains(holder.getAdapterPosition())) {
+                likedPositions.add(holder.getAdapterPosition());
+                updateLikesCounter(holder, true);
+                updateHeartButton(holder, true);
             }
         }
     }
