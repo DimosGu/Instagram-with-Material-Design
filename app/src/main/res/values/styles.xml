@@ -10,8 +10,7 @@
     <!-- 开始动画之前，要将CommentsActivity设置成半透明
         否则扩展动画会显示在窗口背景之上，而不是在View之上
         因为每个activity的窗口背景定义在所采用的主题中-->
-    <style name="AppTheme.CommentActivity"
-           parent="AppTheme">
+    <style name="AppTheme.CommentActivity" >
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
