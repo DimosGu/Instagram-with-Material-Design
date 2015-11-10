@@ -238,7 +238,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     private void animatePhoteLike(CellFeedViewHolder holder) {
-        // TODO: 2015/10/18 add animation for feed photo like 
+        // TODO: 2015/10/18 add animation for feed photo like
     }
 
     private void resetLikeAnimationState(CellFeedViewHolder holder) {
