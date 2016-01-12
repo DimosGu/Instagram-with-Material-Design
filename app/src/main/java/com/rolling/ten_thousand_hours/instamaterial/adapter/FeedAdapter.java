@@ -86,6 +86,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from( context ).inflate(R.layout.item_feed, parent, false);
+        // TODO 这里有很多事情没有做，很多很多
         return new CellFeedViewHolder(view);
     }
 
