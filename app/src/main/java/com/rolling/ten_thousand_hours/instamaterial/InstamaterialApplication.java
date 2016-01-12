@@ -12,7 +12,7 @@ public class InstamaterialApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // TODO: 2015/10/3  去百度了解学习一下timber
+        // TODO: 2015/10/3  去google了解学习一下timber
         Timber.plant(new Timber.DebugTree());
     }
 }
